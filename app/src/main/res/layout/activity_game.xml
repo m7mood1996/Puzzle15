@@ -1,9 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".GameActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moves"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:id="@+id/moves_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0000"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="@string/time"
+            android:layout_marginStart="150dp" />
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="00:00"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical"
+        android:layout_marginStart="25dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m1x1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="1"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m1x2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="2"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m1x3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="3"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m1x4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="4"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m2x1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="5"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m2x2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="6"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m2x3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="7"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m2x4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="8"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m3x1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="9"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+               />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m3x2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="10"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m3x3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="11"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m3x4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="12"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m4x1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="13"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m4x2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="14"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m4x3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="15"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+
+            <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/m4x4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#0000ff"
+                android:text="16"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="#000000"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttostartnewgamebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:text="@string/start_new_game"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

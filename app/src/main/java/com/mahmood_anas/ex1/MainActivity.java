@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,11 +22,12 @@ import android.widget.Switch;
 
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity {
 
     Button StartPlay;
     Switch Music;
     SharedPreferences sp;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +39,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         sp = getSharedPreferences("MyPref",MODE_PRIVATE);
 
-        Music.setOnCheckedChangeListener(this);
+        Music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                 // this when the music switch is on
+                SharedPreferences.Editor editor =sp.edit();
+                editor.putBoolean("Music",isChecked);
+                editor.commit();
 
-        StartPlay.setOnClickListener(this);
+            }
+        });
+        context = this;
+
+
+
+        StartPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(context,GameActivity.class);
+                startActivity(start);
+            }
+        });
+
+
+
     }
 
 
@@ -97,26 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.start_play) {           // this when the start play button clicked
-            Intent start = new Intent(this, GameActivity.class);
-            startActivity(start);
-        }
-    }
+    protected void onResume() {
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        MediaPlayer ring = MediaPlayer.create(MainActivity.this, R.raw.ring);
-        if(compoundButton.getId() == Music.getId() && isChecked == true){   // this when the music switch is on
-            SharedPreferences.Editor editor =sp.edit();
-            ring.start();
-            editor.putBoolean("Music",true);
-            editor.commit();
-        }
-        else if(compoundButton.getId() == Music.getId() && isChecked == true){
-            SharedPreferences.Editor editor =sp.edit();
-            editor.putBoolean("Music",false);
-            editor.commit();
-        }
+
+        super.onResume();
     }
 }

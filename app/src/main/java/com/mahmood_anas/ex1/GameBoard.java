@@ -1,38 +1,50 @@
 package com.mahmood_anas.ex1;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.String;
 public class GameBoard {
-    int array[];
+    TextView array[];
+    Context context;
 
-    private void setArray(){
-        array = new int[16];
-        array[0] = R.id.m1x1;
-        array[1] = R.id.m1x2;
-        array[2] = R.id.m1x3;
-        array[3] = R.id.m1x4;
-        array[4] = R.id.m2x1;
-        array[5] = R.id.m2x2;
-        array[6] = R.id.m2x3;
-        array[7] = R.id.m2x4;
-        array[8] = R.id.m3x1;
-        array[9] = R.id.m3x2;
-        array[10] = R.id.m3x3;
-        array[11] = R.id.m3x4;
-        array[12] = R.id.m4x1;
-        array[13] = R.id.m4x2;
-        array[14] = R.id.m4x3;
-        array[15] = R.id.m4x3;
-
+    public GameBoard(TextView[] ides, GameActivity gameActivity) {
+        this.array = ides;
+        this.context = gameActivity;
     }
-    public void changeArray(){
-        setArray();
-        System.out.println("Walaaaaaa");
-        for(int i=0;i < array.length;i++){
-            System.out.print("Anas !!  " + array[i]);
+
+   public void shuffle(){
+
+        for(int i = 0;i< 16 ;i++){
+            int s = i + (int)(Math.random() * (16-i));
+
+            String ss = "";
+
+            ss = array[s].getText().toString();
+            Drawable d =array[s].getBackground();
+
+
+            array[s].setText( array[i].getText().toString());
+            array[s].setBackground(array[i].getBackground());
+
+            array[i].setText(ss);
+            array[i].setBackground(d);
         }
-    }
+
+
+   }
+
+   public void swap(){
+        this.array[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+   }
+
 }

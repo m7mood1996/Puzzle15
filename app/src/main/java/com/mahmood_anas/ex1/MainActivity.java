@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Music = (Switch)findViewById(R.id.music_switch);
 
         sp = getSharedPreferences("MyPref",MODE_PRIVATE);
-
+        Log.d("sp:" ,sp.toString());
         Music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -123,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-
+        MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.ring);
+        if(mediaPlayer.isPlaying() == true)
+            mediaPlayer.reset();
         super.onResume();
     }
 }

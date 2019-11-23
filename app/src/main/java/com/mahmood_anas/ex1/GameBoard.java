@@ -63,12 +63,10 @@ public class GameBoard {
                 Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
 
-            else if(pos == emptyPos+1 || pos == emptyPos- 1 || pos == emptyPos-4) {//swap
-                swap_ele(this.array[pos], this.array[emptyPos]);
-                Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
-            }
-
-
+            else if ((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos + 1 || pos == emptyPos - 1 || pos == emptyPos - 4)) {//swap
+                    swap_ele(this.array[pos], this.array[emptyPos]);
+                    Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
+                }
         }
         else if(pos > 11){
             if(pos%4 == 0 && (pos == emptyPos -1 || pos == emptyPos +4)) {
@@ -77,10 +75,12 @@ public class GameBoard {
             }
             else if(pos%4 == 3 && (pos == emptyPos+1 || pos == emptyPos+4)) {
                 swap_ele(this.array[pos], this.array[emptyPos]);
+                System.out.println("I'm hereee! ");
                 Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
             }
-            else if(pos == emptyPos+1 || pos == emptyPos- 1 || pos == emptyPos+4) { //swap
+            else if((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos+1 || pos == emptyPos- 1 || pos == emptyPos+4)) { //swap
                 swap_ele(this.array[pos], this.array[emptyPos]);
+                System.out.println("I'm hereee hhhhhh ");
                 Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
             }
         }
@@ -88,14 +88,17 @@ public class GameBoard {
         else{
             if(pos%4 == 0 &&(pos == emptyPos-1 || pos == emptyPos+4 || pos == emptyPos-4 )){
                 swap_ele(this.array[pos],this.array[emptyPos]);
+                System.out.println("Ana d5alt hon ! ");
                 Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
             else if(pos%4 == 3 &&(pos == emptyPos+1 || pos == emptyPos+4 || pos == emptyPos-4 )){
                 swap_ele(this.array[pos],this.array[emptyPos]);
+                System.out.println("Ya kbeer! ");
                 Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
-            else if((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos+1 || pos == emptyPos+1 || pos == emptyPos+4 || pos == emptyPos-4 )){
+            else if((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos-1 || pos == emptyPos+1 || pos == emptyPos+4 || pos == emptyPos-4 )){
                 swap_ele(this.array[pos],this.array[emptyPos]);
+                System.out.println("zeft! ");
                 Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
 

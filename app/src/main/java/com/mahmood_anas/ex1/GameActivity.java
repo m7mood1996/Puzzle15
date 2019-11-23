@@ -202,24 +202,6 @@ public class GameActivity extends AppCompatActivity {
         }
 
 */
-       /* this.ides[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ides[1].getId() != R.id.m4x4 && ides[2].getId() == R.id.m4x4){
-
-
-                    TextView temp = ides[1];
-                    ides[1] = ides[2];
-                    ides[2]=ides[1];
-
-                }
-                else if(ides[1].getId() != R.id.m4x4 && (ides[5].getId() == R.id.m4x4)){
-                    TextView temp = ides[1];
-                    ides[1] = ides[5];
-                    ides[5]=ides[1];
-                }
-            }
-        });*/
 
 
     }

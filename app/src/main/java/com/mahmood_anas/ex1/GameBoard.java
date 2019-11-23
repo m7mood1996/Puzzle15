@@ -8,13 +8,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.String;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.sleep;
+
 public class GameBoard {
     TextView array[];
     Context context;
-
-    public GameBoard(TextView[] ides, GameActivity gameActivity) {
+    TextView moves;
+    TextView timer;
+    public GameBoard(TextView[] ides, GameActivity gameActivity,TextView moves,TextView timer) {
         this.array = ides;
         this.context = gameActivity;
+        this.moves = moves;
+        this.timer=timer;
     }
 
    public void shuffle(){
@@ -118,6 +125,12 @@ public class GameBoard {
 
        sec.setText(ss);
        sec.setBackground(d);
+
+       int mo = Integer.parseInt(this.moves.getText().toString());
+       mo++;
+       String num =String.format("%04d", mo);
+       Log.d("num_moves", num);
+       this.moves.setText(num);
    }
     public boolean isSolved(){
         int parity =0;
@@ -170,5 +183,28 @@ public class GameBoard {
             return parity %2 ==0;
         }
 
+    }
+    public String updateTime(){
+        String Time = timer.getText().toString();
+        String minute = Time.substring(0,2);
+        String seconde = Time.substring(3);
+        int min_int = Integer.parseInt(minute);
+        int sec_int = Integer.parseInt(seconde);
+        sec_int++;
+        try {
+            sleep(1000);
+
+
+            if (sec_int == 60) {
+                min_int++;
+                sec_int = 0;
+            }
+
+            Log.d("min =",minute);
+            Log.d("sec =",seconde);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+        return String.format("%02d", min_int) + ":" + String.format("%02d", sec_int);
     }
 }

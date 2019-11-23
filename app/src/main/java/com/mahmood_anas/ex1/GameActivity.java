@@ -18,6 +18,8 @@ public class GameActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     Boolean intFlag = false;
     TextView ides[];
+    TextView moves;
+    TextView time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +30,34 @@ public class GameActivity extends AppCompatActivity {
         boolean musicOn = sp.getBoolean("Music",false);
         ides = new TextView[16];
         init_ides(ides);
-        gameBoard = new GameBoard(ides,this);
+        moves = findViewById(R.id.moves_num);
+        time = findViewById(R.id.timer);
+        gameBoard = new GameBoard(ides,this,moves,time);
+        gameBoard.updateTime();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    final String returntime = gameBoard.updateTime();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            time.setText(returntime);
+                        }
+                    });
+                }
+            }
+        }).start();
+
 
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                gameBoard.moves.setText("0000");
                 gameBoard.shuffle();
                 if(gameBoard.isSolved() == false) {
                     String s = "we cant solve";
+
                     gameBoard.shuffle();
                     Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
                 }
@@ -238,6 +260,7 @@ public class GameActivity extends AppCompatActivity {
         ides[13] = findViewById(R.id.m4x2);
         ides[14] = findViewById(R.id.m4x3);
         ides[15] = findViewById(R.id.m4x4);
+
 
     }
 

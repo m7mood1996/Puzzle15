@@ -2,9 +2,12 @@ package com.mahmood_anas.ex1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TimingLogger;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,10 +19,14 @@ public class GameActivity extends AppCompatActivity {
     Button startGame;
     SharedPreferences sp;
     MediaPlayer mediaPlayer;
-    Boolean intFlag = false;
+    boolean newGame;
     TextView ides[];
     TextView moves;
     TextView time;
+    String returntime;
+    Context context;
+    boolean musicOn;
+    boolean flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,46 +34,32 @@ public class GameActivity extends AppCompatActivity {
         startGame = findViewById(R.id.start_game);
         mediaPlayer = MediaPlayer.create(this,R.raw.ring);
         sp = getSharedPreferences("MyPref",MODE_PRIVATE);
-        boolean musicOn = sp.getBoolean("Music",false);
+        musicOn = sp.getBoolean("Music",false);
         ides = new TextView[16];
         init_ides(ides);
+        newGame = false;
+        context = this;
         moves = findViewById(R.id.moves_num);
         time = findViewById(R.id.timer);
-        gameBoard = new GameBoard(ides,this,moves,time);
-        gameBoard.updateTime();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    final String returntime = gameBoard.updateTime();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            time.setText(returntime);
-                        }
-                    });
-                }
-            }
-        }).start();
+        gameBoard = new GameBoard(ides,moves,time,this);
+        flag = false;
 
+
+        playMus();
+        th();
 
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                gameBoard = new GameBoard(ides,moves,time,context);
                 gameBoard.moves.setText("0000");
+                newGame = true;
+                gameBoard.resetGame();
                 gameBoard.shuffle();
-                if(gameBoard.isSolved() == false) {
-                    String s = "we cant solve";
 
+                while(gameBoard.isSolved() == false) {
                     gameBoard.shuffle();
-                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
                 }
-                else {
-                    String s = "we can solve";
-                    gameBoard.shuffle();
-                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-                }
-
             }
         });
 
@@ -196,18 +189,29 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                 gameBoard.swap(gameBoard.array[15]);
+                if(gameBoard.woned == true){
 
+                }
                 }
             });
 
 
 
-       /* if(musicOn){
+
+
+
+
+
+    }
+
+    private void playMus() {
+
+        if(musicOn){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
-                    while(true) {
+                    while(musicOn) {
                         if(mediaPlayer.isPlaying() == false)
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -215,33 +219,37 @@ public class GameActivity extends AppCompatActivity {
                                     mediaPlayer.start();
                                 }
                             });
-                        if(intFlag == true)
-                            Thread.currentThread().interrupt();
+
                     }
                 }
             }).start();
 
         }
 
-*/
-
 
     }
-/*
+
     @Override
     public void onPause() {
+            super.onPause();
+            flag = true;
         if (mediaPlayer.isPlaying()) {
-            intFlag = true;
+            musicOn =false;
             mediaPlayer.reset();
 
         }
-
-            super.onPause();
-
     }
- */
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        flag = true;
+        if (mediaPlayer.isPlaying()) {
+            musicOn =false;
+            mediaPlayer.reset();
 
+        }
+    }
 
     public void init_ides(TextView ides[]){
         ides[0] = findViewById(R.id.m1x1);
@@ -263,5 +271,62 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
+    public void th(){
+        new Thread(new Runnable() {
+
+            public void run() {
+
+                    while(true){
+                        if(newGame == true){
+                            returntime = "00:00";
+                            try {
+                                Thread.sleep(100);
+                            }
+                            catch (Exception e){
+
+                            }
+                            newGame = false;
+                        }
+
+                        else
+                            returntime = gameBoard.updateTime();
+
+                        if(gameBoard.woned) {
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context,"Game Over - Puzzle Solved!",Toast.LENGTH_SHORT).show();
+                                }
+
+                            });
+
+                            while (gameBoard.woned)
+                                if (newGame == true) {
+                                    break;
+                                }
+                        }
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                time.setText(returntime);
+                            }
+
+                        });
+                        
+                    }
+
+
+
+
+
+            }
+
+        }).start();
+    }
+
+
 
 }

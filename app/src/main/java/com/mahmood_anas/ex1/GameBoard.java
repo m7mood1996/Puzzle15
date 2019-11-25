@@ -17,11 +17,15 @@ public class GameBoard {
     Context context;
     TextView moves;
     TextView timer;
-    public GameBoard(TextView[] ides, GameActivity gameActivity,TextView moves,TextView timer) {
+    boolean woned;
+    boolean newGame;
+    public GameBoard(TextView[] ides,TextView moves,TextView timer,Context c) {
         this.array = ides;
-        this.context = gameActivity;
+        this.context = c;
         this.moves = moves;
         this.timer=timer;
+        this.woned = false;
+        this.newGame = false;
     }
 
    public void shuffle(){
@@ -56,57 +60,43 @@ public class GameBoard {
             if(this.array[i].getText().toString().isEmpty())
                 emptyPos=i;
         }
-       Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
-
-
         if(pos < 4){
             if(pos%4 == 0 &&(pos == emptyPos-1 || pos == emptyPos-4)) { // swap
                 swap_ele(this.array[pos], this.array[emptyPos]);
-                Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
+
             }
 
             else if(pos%4 ==3 &&(pos == emptyPos+1 || pos == emptyPos-4)) {//swap
                 swap_ele(this.array[pos], this.array[emptyPos]);
-                Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
+
             }
 
             else if ((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos + 1 || pos == emptyPos - 1 || pos == emptyPos - 4)) {//swap
                     swap_ele(this.array[pos], this.array[emptyPos]);
-                    Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
+
                 }
         }
         else if(pos > 11){
             if(pos%4 == 0 && (pos == emptyPos -1 || pos == emptyPos +4)) {
                 swap_ele(this.array[pos], this.array[emptyPos]);
-                Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
             }
             else if(pos%4 == 3 && (pos == emptyPos+1 || pos == emptyPos+4)) {
                 swap_ele(this.array[pos], this.array[emptyPos]);
-                System.out.println("I'm hereee! ");
-                Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
             }
             else if((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos+1 || pos == emptyPos- 1 || pos == emptyPos+4)) { //swap
                 swap_ele(this.array[pos], this.array[emptyPos]);
-                System.out.println("I'm hereee hhhhhh ");
-                Log.d("pos\tEmptyPos", pos + "\t" + emptyPos);
             }
         }
 
         else{
             if(pos%4 == 0 &&(pos == emptyPos-1 || pos == emptyPos+4 || pos == emptyPos-4 )){
                 swap_ele(this.array[pos],this.array[emptyPos]);
-                System.out.println("Ana d5alt hon ! ");
-                Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
             else if(pos%4 == 3 &&(pos == emptyPos+1 || pos == emptyPos+4 || pos == emptyPos-4 )){
                 swap_ele(this.array[pos],this.array[emptyPos]);
-                System.out.println("Ya kbeer! ");
-                Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
             else if((pos%4 == 2 || pos%4==1 ) &&(pos == emptyPos-1 || pos == emptyPos+1 || pos == emptyPos+4 || pos == emptyPos-4 )){
                 swap_ele(this.array[pos],this.array[emptyPos]);
-                System.out.println("zeft! ");
-                Log.d("pos\tEmptyPos",pos + "\t" + emptyPos);
             }
 
 
@@ -131,6 +121,16 @@ public class GameBoard {
        String num =String.format("%04d", mo);
        Log.d("num_moves", num);
        this.moves.setText(num);
+
+       if(wonTheGame() == true) {
+
+           this.woned = true;
+            for(int i=0;i<16;i++){
+                this.array[i].setClickable(false);
+            }
+
+
+       }
    }
     public boolean isSolved(){
         int parity =0;
@@ -185,26 +185,51 @@ public class GameBoard {
 
     }
     public String updateTime(){
-        String Time = timer.getText().toString();
+
+        String Time;
+
+
+        Time = timer.getText().toString();
+
         String minute = Time.substring(0,2);
         String seconde = Time.substring(3);
         int min_int = Integer.parseInt(minute);
         int sec_int = Integer.parseInt(seconde);
         sec_int++;
         try {
-            sleep(1000);
+            sleep(500);
 
 
             if (sec_int == 60) {
                 min_int++;
                 sec_int = 0;
             }
-
-            Log.d("min =",minute);
-            Log.d("sec =",seconde);
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
         }
+
         return String.format("%02d", min_int) + ":" + String.format("%02d", sec_int);
+
     }
+    public boolean wonTheGame(){
+        boolean won = true;
+        String arr[] = new String[15];
+
+        for (int i =0;i<15 ;i++){
+            arr[i] = this.array[i].getText().toString();
+            //
+            if(arr[i].isEmpty() || Integer.parseInt(arr[i]) != i+1)
+                won = false;
+        }
+        return won;
+    }
+    public void resetGame(){
+
+        this.woned = false;
+        for(int i=0;i<16;i++){
+            this.array[i].setClickable(true);
+        }
+
+    }
+
 }

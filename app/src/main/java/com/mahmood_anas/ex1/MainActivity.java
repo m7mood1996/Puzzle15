@@ -123,9 +123,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.ring);
-        if(mediaPlayer.isPlaying() == true)
-            mediaPlayer.reset();
         super.onResume();
     }
 }

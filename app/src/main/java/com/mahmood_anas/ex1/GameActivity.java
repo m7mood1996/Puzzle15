@@ -27,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     Context context;
     boolean musicOn;
     boolean flag;
+    boolean onP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
         time = findViewById(R.id.timer);
         gameBoard = new GameBoard(ides,moves,time,this);
         flag = false;
-
+        onP = false;
 
         playMus();
         th();
@@ -233,11 +234,18 @@ public class GameActivity extends AppCompatActivity {
     public void onPause() {
             super.onPause();
             flag = true;
+            onP = true;
         if (mediaPlayer.isPlaying()) {
             musicOn =false;
             mediaPlayer.reset();
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onP = false;
     }
 
     @Override
@@ -277,6 +285,7 @@ public class GameActivity extends AppCompatActivity {
             public void run() {
 
                     while(true){
+                        while(onP);
                         if(newGame == true){
                             returntime = "00:00";
                             try {
